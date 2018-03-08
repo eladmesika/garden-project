@@ -63,7 +63,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Familys
 export function index(req, res) {
-  return Family.find().exec()
+  return Family.find().populate('Plants').exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

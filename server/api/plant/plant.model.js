@@ -7,7 +7,8 @@ var PlantSchema = new mongoose.Schema({
   name: String,
   info: String,
   active: Boolean,
-  img: String
+  img: String,
+  family:{type:mongoose.Schema.Types.ObjectId,ref:'Family'}
 });
 
 registerEvents(PlantSchema);
