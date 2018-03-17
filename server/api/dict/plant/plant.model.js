@@ -2,14 +2,17 @@
 
 import mongoose from 'mongoose';
 import {registerEvents} from './plant.events';
+var Schema = mongoose.Schema;
+
 
 var PlantSchema = new mongoose.Schema({
-  name: String,
+  name:{type: String,required:true,maxlength:200},
   info: String,
-  active: Boolean,
   img: String,
-  family:{type:mongoose.Schema.Types.ObjectId,ref:'Family'}
+  tags:[{type:Schema.Types.ObjectId,ref:'Tag'}]
 });
+
+
 
 registerEvents(PlantSchema);
 export default mongoose.model('Plant', PlantSchema);

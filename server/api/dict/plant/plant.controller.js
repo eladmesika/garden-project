@@ -1,17 +1,17 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/gildas              ->  index
- * POST    /api/gildas              ->  create
- * GET     /api/gildas/:id          ->  show
- * PUT     /api/gildas/:id          ->  upsert
- * PATCH   /api/gildas/:id          ->  patch
- * DELETE  /api/gildas/:id          ->  destroy
+ * GET     /api/plants              ->  index
+ * POST    /api/plants              ->  create
+ * GET     /api/plants/:id          ->  show
+ * PUT     /api/plants/:id          ->  upsert
+ * PATCH   /api/plants/:id          ->  patch
+ * DELETE  /api/plants/:id          ->  destroy
  */
 
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
-import Gilda from './gilda.model';
+import Plant from './plant.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,54 +61,54 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Gildas
+// Gets a list of Plants
 export function index(req, res) {
-  return Gilda.find().exec()
+  return Plant.find().populate('tags').exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Gilda from the DB
+// Gets a single Plant from the DB
 export function show(req, res) {
-  return Gilda.findById(req.params.id).exec()
+  return Plant.findById(req.params.id).populate('tags').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Gilda in the DB
+// Creates a new Plant in the DB
 export function create(req, res) {
-  return Gilda.create(req.body)
+  return Plant.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Gilda in the DB at the specified ID
+// Upserts the given Plant in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Gilda.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Plant.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
 
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Updates an existing Gilda in the DB
+// Updates an existing Plant in the DB
 export function patch(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Gilda.findById(req.params.id).exec()
+  return Plant.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Gilda from the DB
+// Deletes a Plant from the DB
 export function destroy(req, res) {
-  return Gilda.findById(req.params.id).exec()
+  return Plant.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

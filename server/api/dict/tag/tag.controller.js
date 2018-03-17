@@ -1,17 +1,17 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/families              ->  index
- * POST    /api/families              ->  create
- * GET     /api/families/:id          ->  show
- * PUT     /api/families/:id          ->  upsert
- * PATCH   /api/families/:id          ->  patch
- * DELETE  /api/families/:id          ->  destroy
+ * GET     /api/dict/tags              ->  index
+ * POST    /api/dict/tags              ->  create
+ * GET     /api/dict/tags/:id          ->  show
+ * PUT     /api/dict/tags/:id          ->  upsert
+ * PATCH   /api/dict/tags/:id          ->  patch
+ * DELETE  /api/dict/tags/:id          ->  destroy
  */
 
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
-import Family from './family.model';
+import Tag from './tag.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,54 +61,54 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Familys
+// Gets a list of Tags
 export function index(req, res) {
-  return Family.find().populate('Plants').exec()
+  return Tag.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Family from the DB
+// Gets a single Tag from the DB
 export function show(req, res) {
-  return Family.findById(req.params.id).exec()
+  return Tag.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Family in the DB
+// Creates a new Tag in the DB
 export function create(req, res) {
-  return Family.create(req.body)
+  return Tag.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Family in the DB at the specified ID
+// Upserts the given Tag in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Family.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Tag.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
 
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Updates an existing Family in the DB
+// Updates an existing Tag in the DB
 export function patch(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Family.findById(req.params.id).exec()
+  return Tag.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Family from the DB
+// Deletes a Tag from the DB
 export function destroy(req, res) {
-  return Family.findById(req.params.id).exec()
+  return Tag.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

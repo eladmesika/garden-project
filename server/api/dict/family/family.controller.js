@@ -1,17 +1,17 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/plants              ->  index
- * POST    /api/plants              ->  create
- * GET     /api/plants/:id          ->  show
- * PUT     /api/plants/:id          ->  upsert
- * PATCH   /api/plants/:id          ->  patch
- * DELETE  /api/plants/:id          ->  destroy
+ * GET     /api/families              ->  index
+ * POST    /api/families              ->  create
+ * GET     /api/families/:id          ->  show
+ * PUT     /api/families/:id          ->  upsert
+ * PATCH   /api/families/:id          ->  patch
+ * DELETE  /api/families/:id          ->  destroy
  */
 
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
-import Plant from './plant.model';
+import Family from './family.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,54 +61,60 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Plants
+// Gets a list of Familys
 export function index(req, res) {
-  return Plant.find().exec()
+  return Family.find()
+  .populate('plants')
+  .populate('tags')
+  .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Plant from the DB
+// Gets a single Family from the DB
 export function show(req, res) {
-  return Plant.findById(req.params.id).exec()
+  return Family.findById(req.params.id)
+  .populate('plants')
+  .populate('tags')
+  .exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Plant in the DB
+// Creates a new Family in the DB
 export function create(req, res) {
-  return Plant.create(req.body)
+  return Family.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Plant in the DB at the specified ID
+// Upserts the given Family in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Plant.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Family.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
 
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Updates an existing Plant in the DB
+// Updates an existing Family in the DB
 export function patch(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Plant.findById(req.params.id).exec()
+  return Family.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Plant from the DB
+// Deletes a Family from the DB
 export function destroy(req, res) {
-  return Plant.findById(req.params.id).exec()
+  return Family.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

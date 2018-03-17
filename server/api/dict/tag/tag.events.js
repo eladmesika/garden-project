@@ -1,14 +1,14 @@
 /**
- * ElementsEPlant model events
+ * DictTag model events
  */
 
 'use strict';
 
 import {EventEmitter} from 'events';
-var ElementsEPlantEvents = new EventEmitter();
+var TagEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
-ElementsEPlantEvents.setMaxListeners(0);
+TagEvents.setMaxListeners(0);
 
 // Model events
 var events = {
@@ -17,19 +17,19 @@ var events = {
 };
 
 // Register the event emitter to the model events
-function registerEvents(ElementsEPlant) {
+function registerEvents(DictTag) {
   for(var e in events) {
     let event = events[e];
-    ElementsEPlant.post(e, emitEvent(event));
+    DictTag.post(e, emitEvent(event));
   }
 }
 
 function emitEvent(event) {
   return function(doc) {
-    ElementsEPlantEvents.emit(event + ':' + doc._id, doc);
-    ElementsEPlantEvents.emit(event, doc);
+    TagEvents.emit(event + ':' + doc._id, doc);
+    TagEvents.emit(event, doc);
   };
 }
 
 export {registerEvents};
-export default ElementsEPlantEvents;
+export default TagEvents;
