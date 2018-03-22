@@ -9,11 +9,12 @@ import path from 'path';
 
 export default function(app) {
     // Insert routes below
-    app.use('/api/dict/tags', require('./api/dict/tag'));
-    app.use('/api/dict/gildas', require('./api/dict/gilda'));
-    app.use('/api/dict/families', require('./api/dict/family'));
-    app.use('/api/dict/plants', require('./api/dict/plant'));
-    app.use('/api/dict/things', require('./api/thing'));
+  app.use('/api/dict/tags', require('./api/dict/tag'));
+  app.use('/api/dict/gildas', require('./api/dict/gilda'));
+  app.use('/api/dict/families', require('./api/dict/family'));
+  app.use('/api/dict/plants', require('./api/dict/plant'));
+  app.use('/api/dict/things', require('./api/thing'));
+  app.use('/api/dict/tags', require('./api/dict/tag'));
 
     // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
@@ -25,4 +26,3 @@ export default function(app) {
           res.sendFile(path.resolve(`${app.get('appPath')}/index.html`));
         });
 }
- 

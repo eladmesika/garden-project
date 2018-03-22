@@ -10,6 +10,6 @@ export class NavbarComponent {
     menu = [{
         title: 'Home',
         'link': '/home',
-    }];
+    }, {title: 'Garden Dictonary', 'link': '/dict'}];
     Router;
 }

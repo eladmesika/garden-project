@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Component({
     selector: 'main',
@@ -21,9 +23,9 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
-        return this.Http.get('/api/things')
+        return this.Http.get('/api/dict/things')
             .map(res => res.json())
-            // .catch(err => Observable.throw(err.json().error || 'Server error'))
+            .catch(err => Observable.throw(err.json().error || 'Server error'))
             .subscribe(things => {
                 this.awesomeThings = things;
 
@@ -32,11 +34,11 @@ export class MainComponent implements OnInit {
 
 
     addThing() {
-        if(this.newThing) {
+        if (this.newThing) {
             let text = this.newThing;
             this.newThing = '';
 
-            return this.Http.post('/api/things', { name: text })
+            return this.Http.post('/api/dict/things', { name: text })
                 .map(res => res.json())
                 .catch(err => Observable.throw(err.json().error || 'Server error'))
                 .subscribe(thing => {
@@ -46,7 +48,7 @@ export class MainComponent implements OnInit {
     }
 
     deleteThing(thing) {
-        return this.Http.delete(`/api/things/${thing._id}`)
+        return this.Http.delete(`/api/dict/things/${thing._id}`)
             .map(res => res.json())
             .catch(err => Observable.throw(err.json().error || 'Server error'))
             .subscribe(() => {

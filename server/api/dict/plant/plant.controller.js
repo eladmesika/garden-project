@@ -63,17 +63,19 @@ function handleError(res, statusCode) {
 
 // Gets a list of Plants
 export function index(req, res) {
-  return Plant.find().populate('tags').exec()
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  return Plant.find().populate('tags')
+  .exec()
+  .then(respondWithResult(res))
+  .catch(handleError(res));
 }
 
 // Gets a single Plant from the DB
 export function show(req, res) {
-  return Plant.findById(req.params.id).populate('tags').exec()
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  return Plant.findById(req.params.id).populate('tags')
+  .exec()
+  .then(handleEntityNotFound(res))
+  .then(respondWithResult(res))
+  .catch(handleError(res));
 }
 
 // Creates a new Plant in the DB

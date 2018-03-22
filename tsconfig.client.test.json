@@ -10,7 +10,7 @@
     "node_modules/@types"
   ],
   "filesGlob": [
-    "client/{app,components}/**/*.{spec,mock}.ts",
+    "client/{app,components,services}/**/*.{spec,mock}.ts",
     "client/test_typings/**/*.d.ts"
   ]
 }

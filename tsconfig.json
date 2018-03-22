@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "rootDir": "./",
     "module": "es6",
@@ -25,7 +26,7 @@
     "client/**/*.spec.ts"
   ],
   "filesGlob": [
-    "client/{app,components}/**/!(*.spec).ts"
+    "client/{app,components,services}/**/!(*.spec).ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "resolveGlobs": true,

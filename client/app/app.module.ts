@@ -17,15 +17,16 @@ import {
     createNewHosts,
     createInputTransfer,
 } from '@angularclass/hmr';
-
+import { GardenDictonaryService } from '../services/gardenDictonary.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { DirectivesModule } from '../components/directives.module';
-
 import constants from './app.constants';
+
+
+
 
 export function getAuthHttp(http) {
     return new AuthHttp(new AuthConfig({
@@ -38,10 +39,11 @@ export function getAuthHttp(http) {
 let providers: Provider[] = [{
     provide: AuthHttp,
     useFactory: getAuthHttp,
-    deps: [Http]
+    deps: [Http],
 }];
+providers.push({provide: GardenDictonaryService, useClass: GardenDictonaryService});
 
-if(constants.env === 'development') {
+if (constants.env === 'development') {
     @Injectable()
     class HttpOptions extends BaseRequestOptions {
         merge(options: RequestOptionsArgs):RequestOptions {
@@ -63,7 +65,6 @@ const appRoutes: Routes = [{ path: '',
     imports: [
         BrowserModule,
         HttpModule,
-
         RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),
         MainModule,
         DirectivesModule,
@@ -71,6 +72,7 @@ const appRoutes: Routes = [{ path: '',
     declarations: [
         AppComponent,
     ],
+   
     bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -80,7 +82,7 @@ export class AppModule {
     }
 
     hmrOnInit(store) {
-        if (!store || !store.state) return;
+        if (!store || !store.state){ return;}
         console.log('HMR store', store);
         console.log('store.state.data:', store.state.data);
         // inject AppStore here and update it

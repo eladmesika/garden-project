@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import {GardenDictonaryService} from '../../services/gardenDictonary.service'
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -16,6 +16,7 @@ export const ROUTES: Routes = [
 
 
 @NgModule({
+    providers:[GardenDictonaryService],
     imports: [
         BrowserModule,
         FormsModule,
