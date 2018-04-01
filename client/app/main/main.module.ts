@@ -8,11 +8,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap';
 
 import { MainComponent } from './main.component';
+import {appRoutes} from '../app.routes'
+import { DirectivesModule } from '../../components/directives.module'
 
 
-export const ROUTES: Routes = [
-    { path: 'home', component: MainComponent },
-];
+
 
 
 @NgModule({
@@ -20,8 +20,8 @@ export const ROUTES: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forChild(ROUTES),
-
+        RouterModule.forRoot(appRoutes),
+        DirectivesModule,
 
         TooltipModule.forRoot(),
     ],

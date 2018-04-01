@@ -23,6 +23,7 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
+        /*
         return this.Http.get('/api/dict/things')
             .map(res => res.json())
             .catch(err => Observable.throw(err.json().error || 'Server error'))
@@ -30,6 +31,7 @@ export class MainComponent implements OnInit {
                 this.awesomeThings = things;
 
             });
+            */
     }
 
 

@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListviewComponent } from './listview/listview.component';
-
+import { TooltipModule } from 'ngx-bootstrap';
+import {DetailViewComponent} from './detailview/detailview.component';
 
 
 @NgModule({
@@ -16,18 +17,21 @@ import { ListviewComponent } from './listview/listview.component';
         CommonModule,
         CollapseModule,
         RouterModule,
-       
+        TooltipModule.forRoot(),
+        
     ],
     declarations: [
         NavbarComponent,
         FooterComponent,
         ListviewComponent,
+        DetailViewComponent
 
     ],
     exports: [
         NavbarComponent,
         FooterComponent,
         ListviewComponent,
+        DetailViewComponent
     ]
 })
 export class DirectivesModule {}

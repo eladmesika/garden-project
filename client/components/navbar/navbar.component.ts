@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-
+import {Menu} from '../../app/menu/menu'
 
 @Component({
     selector: 'navbar',
-    template: require('./navbar.html')
+    template: require('./navbar.html'),
 })
 export class NavbarComponent {
     isCollapsed = true;
-    menu = [{
-        title: 'Home',
-        'link': '/home',
-    }, {title: 'Garden Dictonary', 'link': '/dict'}];
+    menu = Menu
     Router;
 }

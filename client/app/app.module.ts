@@ -20,13 +20,10 @@ import {
 import { GardenDictonaryService } from '../services/gardenDictonary.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { DirectivesModule } from '../components/directives.module';
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
-import { DirectivesModule } from '../components/directives.module';
 import constants from './app.constants';
-
-
-
 
 export function getAuthHttp(http) {
     return new AuthHttp(new AuthConfig({
@@ -55,19 +52,19 @@ if (constants.env === 'development') {
     providers.push({ provide: RequestOptions, useClass: HttpOptions });
 }
 
-const appRoutes: Routes = [{ path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-}];
+
 
 @NgModule({
     providers,
     imports: [
         BrowserModule,
         HttpModule,
-        RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),
         MainModule,
         DirectivesModule,
+        RouterModule
+    ],
+    exports: [
+        DirectivesModule
     ],
     declarations: [
         AppComponent,

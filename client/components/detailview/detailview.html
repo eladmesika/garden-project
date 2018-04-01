@@ -1,0 +1,39 @@
+<div id="modelItem" class="model fade" role="dialog">
+    <div class="model-dialog">
+        <div class="model-header">
+            <button class="glyphicon glyphicon-remove close"
+                data-dismiss="model">&times;</button>
+            <h4 class="model-title">{{item.name}}</h4>
+        </div>
+        <div class="model-body">
+            <form>
+
+                <div class="media">
+                    <div class="media-left">
+                     <div class="form-group">
+                            <img *ngIf="item.hasOwnProperty('img') && item.img" class="media-object img-rounded" src="{{item.img}}" alt="{{item.info}}">
+                            <input type="file" class="form-control-file" id="itemImgFileUpload">
+                     </div>
+                </div>
+                <div class="media-body">
+                    <div class="form-group">
+                            <label for="itemName">Name:</label>
+                            <input type="text" class="form-control" id="itemName" placeholder="{{item.name}}">          
+                    </div>
+                    <div class="form-group">
+                            <label for="itemInfo">Information:</label>
+                            <input type="text" class="form-control" id="itemInfo" placeholder="{{item.info}}">          
+                    </div>
+                </div>
+                <div class="media-right">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>>

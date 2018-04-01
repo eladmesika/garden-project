@@ -1,6 +1,36 @@
-<h1>hello from list view component</h1>
-<ul class="items">
-    <li class="hero-unit" *ngFor="let item of items">
-        <span >{{item.name}}</span>
-    </li>
-</ul>
+<!-- <div class="list-group container">
+    <a *ngFor="let item of items" (click)="itemClicked(item)"  href="" class="list-group-item  list-group-item align-items-start">
+<div id="{{item._id}}" class="media">
+    
+    <div class="media-left">
+       
+    <span><h3 class="m-1 media-heading">{{item.name}} </h3>
+    <img src="{{item.img}}" class="media-object m-1 img-rounded img-responsive img-right img fluid img-thumbnail" alt="{{item.info}}">
+</span>
+</div>
+</div> -->
+ 
+<div class="container">
+        <div class="row" *ngFor="let item of items" >
+            <div class="col">
+                <div class="media">
+                  <div class="media-left" id="itemImg" >
+                    <a href="#">
+                      <img class="media-object img-rounded" src="{{item.img}}" alt="{{item.info}}">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">{{item.name}}</h4>
+                    {{item.info}}
+                </div>
+                <div class="media-right"> 
+                        <a id="btnEdit" routerLink="detail/{{item._id}}" class="glyphicon glyphicon-pencil btn btn-primary p-2"></a>
+                        </div>
+                <div class="media-right"> 
+                <button id="btnDel" (click)="onItemDelete(item._id)" class="glyphicon glyphicon-trash btn btn-primary p-2"></button>
+                </div>
+            
+            </div> 
+            </div>
+        </div>
+    </div>
