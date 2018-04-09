@@ -22,25 +22,24 @@ export class DetailViewComponent implements OnInit {
         private gardenDictonaryService: GardenDictonaryService,
         private location: Location,
         private route: ActivatedRoute
-    ) { }
-
-    ngOnInit() {
-        this.getItem().subscribe(item=>{
-            this.item=item;
-        });
-       
+    ) {
+        this.modelName = this.route.snapshot.paramMap.get('modelname');
     }
 
-    getItem(): Observable<any> {
+    ngOnInit() {
+
+        this.getItem();
+    }
+
+    getItem() :void{
         const id = this.route.snapshot.paramMap.get('_id');
-        this.modelName = this.route.snapshot.paramMap.get('modelname');
-        return this.gardenDictonaryService.getItem(this.modelName, id);
+         this.gardenDictonaryService.getItem(this.modelName, id).subscribe(serveritem=>this.item=serveritem);
     }
     back(): void {
         this.location.back();
     }
     save(): void {
-        this.gardenDictonaryService.editItem(this.item);
+        this.gardenDictonaryService.editItem(this.item,this.modelName);
     }
 
 }

@@ -57,6 +57,7 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log(err);
     res.status(statusCode).send(err);
   };
 }
@@ -98,6 +99,7 @@ export function upsert(req, res) {
 
 // Updates an existing Plant in the DB
 export function patch(req, res) {
+  console.log(req.body);
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }

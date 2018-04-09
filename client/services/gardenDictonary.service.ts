@@ -26,7 +26,7 @@ export class GardenDictonaryService {
             .map(res => res.json())
             .catch(err => Observable.throw(err.json().error || 'Server error'));
     }
-    addItem(req):any{
+    addItem(req,model):any{
     
         if(this.newItem)
         {
@@ -38,9 +38,14 @@ export class GardenDictonaryService {
             })
         }
     }
-    editItem(req)
+    editItem(req,model)
     {
-
+        return this.Http.put(`/api/dict/${model}/${req._id}`,req)
+        .map(res=>res.json())
+            .catch(err=>Observable.throw(err.json().error||'Server error'))
+            .subscribe(item=>{
+                console.log(`added item:${item}`);
+            })
     }
     deleteItem(modelName:string,id)
     {
@@ -52,3 +57,4 @@ export class GardenDictonaryService {
             });
     }
 }
+

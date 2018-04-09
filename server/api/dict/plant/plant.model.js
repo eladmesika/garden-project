@@ -13,3 +13,6 @@ var PlantSchema = new mongoose.Schema({
 
 registerEvents(PlantSchema);
 export default mongoose.model('Plant', PlantSchema);
+
+
+ 
